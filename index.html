@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websockets on symfony2</title>
+    <script src="js/gos_web_socket_client.js"></script>
+    <script src="js/autobahn.min.js"></script>
+    <style>
+        #subscribe {
+            height: 250px;
+            width: 500px;
+            border: solid darkgray 1px;
+            margin: 0 10px 20px 0;
+            float: left;
+            overflow-y: scroll;
+        }
+
+        #chat input[name="message"] {
+            width: 500px;
+        }
+
+        #notifications {
+            margin: 0 10px 20px 520px;
+        }
+
+        .log {
+            width: 700px;
+            height: 232px;
+            border: solid darkgray 1px;
+            float: none;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-window">
+        <div id="subscribe"></div>
+        <div id="notifications">
+            <span>LOG:</span>
+            <div class="log"></div>
+        </div>
+        <form id="chat" name="chatroom" action="">
+            <input  id="sendMsg" type="text" name="message">
+            <input  id="sendBtn" type="submit" value="Send">
+        </form>
+    </div>
+    <script src="js/websocket.js"></script>
+</body>
+</html>
