@@ -70,8 +70,7 @@ function runSocket() {
             var msg = {
                 type: "message",
                 body: {
-                    message: outgoingMessage,
-                    date: Date.now()
+                    message: outgoingMessage
                 },
                 version:   "1.0.0"
             };
