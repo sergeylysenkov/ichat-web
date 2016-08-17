@@ -53,7 +53,7 @@ function showMessage(obj, message, logLevel) {
 }
 
 function runSocket() {
-    ws = WS.connect("ws://192.168.0.110:8080");
+    ws = WS.connect("ws://213.159.214.136:8080");
 
     ws.on("socket/connect", function(session){
         logMessage(logBlock[0], "Successfully connected to the chat!");
@@ -87,6 +87,7 @@ function runSocket() {
     ws.on("socket/disconnect", function(error){
         //error provides us with some insight into the disconnection: error.reason and error.code
 
+        logMessage(logBlock[0], error.reason, "ERROR");
         logMessage(logBlock[0], "We have problems with connection to the chat. Sorry!", "ERROR");
     });
 }
@@ -94,11 +95,24 @@ function runSocket() {
 function prepareReceivedData(uri, payload) {
     console.log(payload);
 
-    var outMsg, d;
+    var outMsg, msg_timestamp, msg, d;
 
-    d = new Date(payload.msg.body.date * 1000).toLocaleString();
+    msg_timestamp = Date.now();
 
-    outMsg = d + " " + payload.msg.body.message;
+    if (payload.msg["body"] != undefined) {
+        if (payload.msg.body["date"])
+            msg_timestamp = payload.msg.body["date"] * 1000;
+
+        if (payload.msg.body["message"])
+            msg = payload.msg.body["message"];
+        else
+            msg = payload["msg"];
+    }
+
+
+    d = new Date(msg_timestamp).toLocaleString();
+
+    outMsg = d + ": " + msg;
 
     switch(payload.msg.type) {
         case "message":
